@@ -55,7 +55,7 @@ class Net(nn.Module):
         return x
 
 
-net = Net().cuda()
+net = Net()
 
 
 criterion = nn.CrossEntropyLoss()  
@@ -73,7 +73,7 @@ for epoch in range(80):
         inputs, labels = data  
         total += labels.size(0)
         # wrap them in Variable
-        inputs, labels = Variable(inputs).cuda(), Variable(labels).cuda()  
+        inputs, labels = Variable(inputs), Variable(labels)
 
         # zero the parameter gradients
         optimizer.zero_grad()
@@ -97,7 +97,7 @@ for epoch in range(80):
 
 print('Finished Training')
 
-net = net.cpu()
+net = net
 correct = 0
 total = 0
 for data in trainloader:
