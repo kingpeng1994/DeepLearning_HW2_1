@@ -153,7 +153,7 @@ net = Net().cuda()
 criterion = nn.CrossEntropyLoss()  # 叉熵损失函数
 optimizer = optim.SGD(net.parameters(), lr=0.1, momentum=0.9)  # 使用SGD（随机梯度下降）优化，学习率为0.001，动量为0.9
 
-for epoch in range(40):  # 遍历数据集两次
+for epoch in range(100):  # 遍历数据集两次
 
     running_loss = 0.0
     # enumerate(sequence, [start=0])，i序号，data是数据
@@ -175,13 +175,11 @@ for epoch in range(40):  # 遍历数据集两次
 
         # 每2000批数据打印一次平均loss值
         running_loss += loss.data[0]  # loss本身为Variable类型，所以要使用data获取其Tensor，因为其为标量，所以取0
-        if i % 100 == 99:  # 每2000批打印一次
-            print('[%d, %5d] loss: %.3f' % (epoch + 1, i + 1, running_loss / 100))
-            running_loss = 0.0
-    if epoch == 4:
+    print('[%d] loss: %.3f' % (epoch + 1, running_loss / len(trainloader)))
+    if epoch == 10:
         learn_rate = 0.01
         optimizer = optim.SGD(net.parameters(), lr=learn_rate, momentum=0.9)
-    if epoch == 20:
+    if epoch == 70:
         learn_rate = 0.001
         optimizer = optim.SGD(net.parameters(), lr=learn_rate, momentum=0.9)
 
